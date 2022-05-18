@@ -30,9 +30,6 @@ const listItems= [
   },
 ]
 
-
-
-
 const Post = ({
   postDate,
   title,

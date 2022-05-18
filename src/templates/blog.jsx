@@ -91,10 +91,6 @@ const Post = ({
       <div>
         <div className="pb-8 flex justify-end">
           <GatsbyImage image={photo}/>
-          {/* <img
-            src={photo}
-            alt="post img"
-          /> */}
         </div>
         <div>
           <p className="flex tracking-widest">
@@ -145,9 +141,7 @@ const Blog = props => {
   return (
     <main>
       <HeroPost />
-      {/* <BlogPosts /> */}
-      
- 
+
       <section className="container mx-auto p-8 pt-12 flex flex-col lg:flex-row  ">
       <div className="lg:w-9/12 lg:pr-8 lg:pt-6">
         <div className="">
