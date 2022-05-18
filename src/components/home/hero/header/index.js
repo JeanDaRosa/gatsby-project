@@ -10,10 +10,11 @@ import {
   XIcon,
 } from '@heroicons/react/outline'
 import React, { Fragment, useEffect, useState } from 'react'
+import { Link } from "gatsby"
 
 const navigation = [
   { name: 'Pricing', href: '#' },
-  { name: 'Partners', href: '#' },
+  { name: 'Partners', href: '/' },
   { name: 'Blog', href: 'blog' },
 ]
 
@@ -68,14 +69,14 @@ const FixedMenu = ({ show }) => {
         }
       >
         <div className="flex justify-start lg:w-0 lg:flex-1">
-          <a href="#">
+          <Link href="/">
             <span className="sr-only">Workflow</span>
             <img
               className="h-8 w-auto sm:h-10"
               src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
               alt=""
             />
-          </a>
+          </Link>
         </div>
         {/* desktop */}
         <Popover.Group as="nav" className="hidden md:flex space-x-10">
@@ -193,7 +194,7 @@ const Header = () => {
           className="flex justify-between items-center container mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8"
         >
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <a href="#">
+            <a href="/">
               <span className="sr-only">Workflow</span>
               <img
                 className="h-8 w-auto sm:h-10"

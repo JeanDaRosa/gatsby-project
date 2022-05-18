@@ -1,7 +1,37 @@
 import { ArrowSmRightIcon, StarIcon } from '@heroicons/react/outline'
-import { useStaticQuery, graphql, Link } from 'gatsby'
+import { graphql, Link } from 'gatsby'
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import React from 'react'
-import PostFooter from '../../footer/postFooter'
+import HeroPost from '../components/blog/blogPosts/HeroPost'
+import Footer from '../components/footer'
+import PostFooter from '../components/footer/postFooter'
+
+export const PageQuery = graphql`
+  query ($skip: Int!, $limit: Int!){
+    postQuery: allMarkdownRemark (
+      skip: $skip,
+      limit: $limit
+    ){
+      edges {
+        node {
+          frontmatter {
+            path
+            postDate
+            title
+            capa {
+              childImageSharp {
+                gatsbyImageData(
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
 
 const listItems= [
   {
@@ -29,9 +59,6 @@ const listItems= [
     href: '/',
   },
 ]
-
-
-
 
 const Post = ({
   postDate,
@@ -63,10 +90,11 @@ const Post = ({
     <div className="">
       <div>
         <div className="pb-8 flex justify-end">
-          <img
+          <GatsbyImage image={photo}/>
+          {/* <img
             src={photo}
             alt="post img"
-          />
+          /> */}
         </div>
         <div>
           <p className="flex tracking-widest">
@@ -112,33 +140,41 @@ const Post = ({
   </div>
 )
 
-const BlogPosts = props => {
- const {data} = props
+const Blog = props => {
+  const {data} = props
   return (
-    <section className="container mx-auto p-8 pt-12 flex flex-col lg:flex-row  ">
+    <main>
+      <HeroPost />
+      {/* <BlogPosts /> */}
+      
+ 
+      <section className="container mx-auto p-8 pt-12 flex flex-col lg:flex-row  ">
       <div className="lg:w-9/12 lg:pr-8 lg:pt-6">
         <div className="">
-          <pre>{JSON.stringify(props, null,2)}</pre>
-          {/* {data.postQuery.edges.map(post => {
+          <pre>{JSON.stringify(data, null,2)}</pre>
+          {data.postQuery.edges.map(post => {
+            const image = getImage(post.node.frontmatter.capa)
             return(
-              // <Post 
-              //   postDate={post.node.frontmatter.postDate}
-              //   title={post.node.frontmatter.title}
-              //   content={post.node.frontmatter.content}
-              //   btnContinueReadingHref={post.node.frontmatter.path}
-              //   key={post.node.frontmatter.title}
-              //   photo={post.node.frontmatter.capa.childImageSharp.gatsbyImageData.images.fallback.src}
-              // />
+              <Post 
+                postDate={post.node.frontmatter.postDate}
+                title={post.node.frontmatter.title}
+                content={post.node.frontmatter.content}
+                btnContinueReadingHref={post.node.frontmatter.path}
+                key={post.node.frontmatter.title}
+                photo={image}
+              />
               
             )
-          })} */}
+          })}
         </div>
       </div>
       <div className="lg:w-3/12 ">
-        <PostFooter />
+      <PostFooter />
       </div>
-    </section>
+      </section>
+      <Footer />
+    </main>
   )
 }
 
-export default BlogPosts
+export default Blog
